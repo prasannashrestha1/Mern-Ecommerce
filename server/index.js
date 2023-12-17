@@ -1,7 +1,8 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const morgan = require("morgan");
-const mongoose = require("mongoose");
+import express from "express";
+import dotenv from "dotenv";
+import morgan from "morgan";
+import mongoose from "mongoose";
+import authRoutes from "./routes/authRoute.js";
 
 //configure the dotenv file
 dotenv.config();
@@ -22,11 +23,14 @@ const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
 
-app.get("/", (req, res) => {
-  res.send({
-    message: "hello",
-  });
-});
+//routes
+app.use("/api/v1/auth", authRoutes);
+
+// app.get("/", (req, res) => {
+//   res.send({
+//     message: "hello",
+//   });
+// });
 
 const PORT = process.env.PORT;
 
