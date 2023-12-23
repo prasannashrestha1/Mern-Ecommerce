@@ -6,8 +6,8 @@ const Contact = () => {
   return (
     <div>
       <Layout title={"Contact Us"}>
-        <div className="contactus flex">
-          <div className="p-10 flex items-start justify-center">
+        <div className="contactus flex items-center justify-center">
+          <div className="p-10 ">
             <img src="/images/contactus.jpeg" alt="" />
           </div>
         </div>
