@@ -1,10 +1,11 @@
 import { FaSearch } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../context/auth";
+import toast from "react-hot-toast";
 
 export default function Header() {
-  // const { currentUser } = useSelector((state) => state.user);
+  const [auth, setAuth] = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const handleSubmit = (e) => {
@@ -22,6 +23,17 @@ export default function Header() {
       setSearchTerm(searchTermFromUrl);
     }
   }, [location.search]);
+
+  const handleLogOut = () => {
+    setAuth({
+      ...auth,
+      user: null,
+      token: "",
+    });
+    localStorage.removeItem("auth");
+    toast.success("Logout Successfully");
+  };
+
   return (
     <header className="bg-slate-200 shadow-md navbar sticky ">
       <div className="flex justify-between items-center max-w-7xl mx-auto p-3">
@@ -57,16 +69,31 @@ export default function Header() {
               About
             </li>
           </Link>
-          <Link to="/register">
-            <li className="hidden sm:inline text-slate-700 hover:underline">
-              Register
-            </li>
-          </Link>
-          <Link to="/login">
-            <li className="hidden sm:inline text-slate-700 hover:underline">
-              Login
-            </li>
-          </Link>
+          {!auth.user ? (
+            <>
+              <Link to="/register">
+                <li className="hidden sm:inline text-slate-700 hover:underline">
+                  Register
+                </li>
+              </Link>
+              <Link to="/login">
+                <li className="hidden sm:inline text-slate-700 hover:underline">
+                  Login
+                </li>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <li
+                  className="hidden sm:inline text-slate-700 hover:underline"
+                  onClick={handleLogOut}
+                >
+                  Logout
+                </li>
+              </Link>
+            </>
+          )}
           <Link to="/cart">
             <li className="hidden sm:inline text-slate-700 hover:underline">
               Cart(0)
