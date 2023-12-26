@@ -9,6 +9,8 @@ import PageNotFound from "./pages/PageNotFound";
 import Policy from "./pages/Policy";
 import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
+import Dashboards from "./pages/user/Dashboards";
+import Private from "./components/Routes/Private";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -16,6 +18,9 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/dashboard" element={<Private />}>
+        <Route path="" element={<Dashboards />} />
+      </Route>
       <Route path="/contact" element={<Contact />} />
       <Route path="/about" element={<About />} />
       <Route path="/policy" element={<Policy />} />
