@@ -8,6 +8,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [answer, setAnswer] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Register = () => {
           password,
           phone,
           address,
+          answer,
         }
       );
 
@@ -85,6 +87,15 @@ const Register = () => {
             id="Address"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="What is your favorite Sport?"
+            className="border p-3 rounded-lg"
+            id="Address"
+            value={answer}
+            onChange={(e) => setAnswer(e.target.value)}
             required
           />
 

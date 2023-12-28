@@ -11,6 +11,7 @@ import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
 import Dashboards from "./pages/user/Dashboards";
 import Private from "./components/Routes/Private";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -25,6 +26,7 @@ function App() {
       <Route path="/about" element={<About />} />
       <Route path="/policy" element={<Policy />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/login" element={<Login />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
