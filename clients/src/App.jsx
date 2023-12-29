@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
@@ -12,15 +11,24 @@ import Login from "./pages/Auth/Login";
 import Dashboards from "./pages/user/Dashboards";
 import Private from "./components/Routes/Private";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
+import AdminRoutes from "./components/Routes/AdminRoutes";
+import AdminDashboard from "./pages/Admin/AdminDashboards";
+import CreateCategory from "./pages/Admin/CreateCategory";
+import CreateProducts from "./pages/Admin/CreateProducts";
+import Users from "./pages/Admin/Users";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/dashboard" element={<Private />}>
-        <Route path="" element={<Dashboards />} />
+        <Route path="users" element={<Dashboards />} />
+      </Route>
+      <Route path="/dashboard" element={<AdminRoutes />}>
+        <Route path="admin" element={<AdminDashboard />} />
+        <Route path="admin/create-category" element={<CreateCategory />} />
+        <Route path="admin/create-product" element={<CreateProducts />} />
+        <Route path="admin/users" element={<Users />} />
       </Route>
       <Route path="/contact" element={<Contact />} />
       <Route path="/about" element={<About />} />

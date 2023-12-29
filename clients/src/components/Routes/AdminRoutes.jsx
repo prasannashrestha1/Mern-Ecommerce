@@ -5,13 +5,13 @@ import axios from "axios";
 
 import { DefaultSpinner } from "../DefaultSpinner";
 
-const PrivateRoute = () => {
+const AdminRoutes = () => {
   const [ok, setOk] = useState(false);
   const [auth, setAuth] = useAuth();
 
   useEffect(() => {
     const authCheck = async () => {
-      const res = await axios.get("api/v1/auth/user-auth");
+      const res = await axios.get("api/v1/auth/admin-auth");
       if (res.data.ok) {
         setOk(true);
       } else {
@@ -20,8 +20,8 @@ const PrivateRoute = () => {
     };
     if (auth?.token) authCheck();
   }, [auth?.token]);
-  // return ok ? <Outlet></Outlet> : <DefaultSpinner />;
+  // return ok ? <Outlet /> : <DefaultSpinner path="" />;
   return <Outlet />;
 };
 
-export default PrivateRoute;
+export default AdminRoutes;

@@ -3,10 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth";
 import toast from "react-hot-toast";
+import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 
 export default function Header() {
   const [auth, setAuth] = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,6 +36,12 @@ export default function Header() {
     localStorage.removeItem("auth");
     toast.success("Logout Successfully");
   };
+
+  // const toPascalCase = (str) =>
+  //   (str.match(/[a-zA-Z0-9]+/g) || [])
+  //     .map((w) => `${w.charAt(0).toUpperCase()}${w.slice(1)}`)
+  //     .join("");
+  // const userUpperCase = toPascalCase(auth?.user?.name);
 
   return (
     <header className="bg-slate-200 shadow-md navbar sticky ">
@@ -84,14 +93,37 @@ export default function Header() {
             </>
           ) : (
             <>
-              <Link to="/login">
-                <li
-                  className="hidden sm:inline text-slate-700 hover:underline"
-                  onClick={handleLogOut}
-                >
-                  Logout
+              <div onClick={() => setIsOpen((prev) => !prev)} className="">
+                <li className=" sm:inline text-slate-700 hover:underline flex">
+                  {auth?.user?.name}
+                  {!isOpen ? (
+                    <AiOutlineCaretDown className="h-3" />
+                  ) : (
+                    <AiOutlineCaretUp className="h-3" />
+                  )}
                 </li>
-              </Link>
+                {isOpen && (
+                  <div className="absolute top-20 flex flex-col items-start rounded-lg p-4 w-[200px] bg-slate-200 gap-4 border-slate-100 border-4 ">
+                    <Link
+                      to={`/dashboard/${
+                        auth?.user?.role === 1 ? "admin" : "users"
+                      }`}
+                    >
+                      <li className="hidden sm:inline text-slate-700 hover:underline">
+                        Dashboard
+                      </li>
+                    </Link>
+                    <Link to="/login">
+                      <li
+                        className="hidden sm:inline text-slate-700 hover:underline"
+                        onClick={handleLogOut}
+                      >
+                        Logout
+                      </li>
+                    </Link>
+                  </div>
+                )}
+              </div>
             </>
           )}
           <Link to="/cart">
