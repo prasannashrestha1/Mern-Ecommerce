@@ -3,7 +3,7 @@ import { useAuth } from "../../context/auth";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
 
-import { DefaultSpinner } from "../DefaultSpinner";
+// import { DefaultSpinner } from "../DefaultSpinner";
 
 const PrivateRoute = () => {
   const [ok, setOk] = useState(false);

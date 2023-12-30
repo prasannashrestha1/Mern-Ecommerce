@@ -8,7 +8,7 @@ const AdminDashboard = () => {
   return (
     <Layout>
       <div className="w-[100%]">
-        <div className="flex flex-col sm:flex-row">
+        <div className="flex flex-col md:flex-row">
           <div className="col-span-3 md:col-span-6">
             <AdminMenu />
           </div>
