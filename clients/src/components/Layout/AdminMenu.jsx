@@ -27,6 +27,12 @@ const AdminMenu = () => {
             Create Product
           </NavLink>
           <NavLink
+            to="/dashboard/admin/product"
+            className="block w-full cursor-pointer rounded-lg p-4 transition duration-500 hover:bg-neutral-100 hover:text-neutral-500 focus:bg-neutral-100 focus:text-neutral-500 focus:ring-0 dark:hover:bg-neutral-600 dark:hover:text-neutral-200 dark:focus:bg-neutral-600 dark:focus:text-neutral-200  border-slate-200  border-2"
+          >
+            Products
+          </NavLink>
+          <NavLink
             to="/dashboard/admin/users"
             className="block w-full cursor-pointer rounded-lg p-4 transition duration-500 hover:bg-neutral-100 hover:text-neutral-500 focus:bg-neutral-100 focus:text-neutral-500 focus:ring-0 dark:hover:bg-neutral-600 dark:hover:text-neutral-200 dark:focus:bg-neutral-600 dark:focus:text-neutral-200  border-slate-200  border-2"
           >

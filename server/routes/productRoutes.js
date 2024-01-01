@@ -34,12 +34,12 @@ router.put(
 router.get("/get-product", getProductController);
 
 //single products
-router.get("/single-product/:slug", getSingleProductController);
+router.get("/get-product/:slug", getSingleProductController);
 
 //get product photo
 router.get("/product-photo/:pid", ProductPhotoController);
 
 //get photo
-router.get("/delete-product/:pid", deleteProductController);
+router.delete("/delete-product/:pid", deleteProductController);
 
 export default router;
