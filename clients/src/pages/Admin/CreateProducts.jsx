@@ -188,7 +188,7 @@ const CreateProducts = () => {
                 size="large"
                 showSearch
                 className="shadow appearance-none border rounded w-[50%] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                onChange={(e) => setShipping(e.target.value)}
+                onChange={(value) => setShipping(value)}
               >
                 <Option value="0">No</Option>
                 <Option value="1">Yes</Option>
