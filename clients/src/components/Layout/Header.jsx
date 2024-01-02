@@ -1,26 +1,19 @@
 // import { FaSearch } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../../context/auth";
 import toast from "react-hot-toast";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import SearchInput from "../Form/SearchInput";
+import useCategory from "../../hooks/UseCategory";
 
 export default function Header() {
   const [auth, setAuth] = useAuth();
-  const [searchTerm, setSearchTerm] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [openCategory, setOpenCategory] = useState(false);
+  const categories = useCategory();
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(location.search);
-    const searchTermFromUrl = urlParams.get("searchTerm");
-    if (searchTermFromUrl) {
-      setSearchTerm(searchTermFromUrl);
-    }
-  }, [location.search]);
-
   const handleLogOut = () => {
     setAuth({
       ...auth,
@@ -58,6 +51,33 @@ export default function Header() {
               About
             </li>
           </Link>
+
+          <div onClick={() => setOpenCategory((prev) => !prev)} className="">
+            <li className=" sm:inline text-slate-700 hover:underline flex">
+              Category
+              {!openCategory ? (
+                <AiOutlineCaretDown className="h-3" />
+              ) : (
+                <AiOutlineCaretUp className="h-3" />
+              )}
+            </li>
+            {openCategory && (
+              <div className="absolute top-20 flex flex-col items-start rounded-lg p-4 w-[200px] bg-slate-200 gap-4 border-slate-100 border-4 ">
+                <li className="hidden sm:inline text-slate-700 hover:underline">
+                  <Link to={`/categories`}>All Categories</Link>
+                </li>
+                {categories.map((c) => (
+                  <li
+                    key={c._id}
+                    className="hidden sm:inline text-slate-700 hover:underline"
+                  >
+                    <Link to={`/category/${c.slug}`}>{c.name}</Link>
+                  </li>
+                ))}
+              </div>
+            )}
+          </div>
+
           {!auth.user ? (
             <>
               <Link to="/register">
