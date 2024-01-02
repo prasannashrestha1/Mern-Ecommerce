@@ -1,9 +1,10 @@
-import { FaSearch } from "react-icons/fa";
+// import { FaSearch } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth";
 import toast from "react-hot-toast";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
+import SearchInput from "../Form/SearchInput";
 
 export default function Header() {
   const [auth, setAuth] = useAuth();
@@ -11,13 +12,6 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set("searchTerm", searchTerm);
-    const searchQuery = urlParams.toString();
-    navigate(`/search?${searchQuery}`);
-  };
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -52,21 +46,7 @@ export default function Header() {
             <span className="text-slate-700">Ecommerce</span>
           </h1>
         </Link>
-        <form
-          onSubmit={handleSubmit}
-          className="bg-slate-100 p-3 rounded-lg flex items-center"
-        >
-          <input
-            type="text"
-            placeholder="Search..."
-            className="bg-transparent focus:outline-none w-24 sm:w-64"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button>
-            <FaSearch className="text-slate-600" />
-          </button>
-        </form>
+        <SearchInput />
         <ul className="flex gap-5">
           <Link to="/">
             <li className="hidden sm:inline text-slate-700 hover:underline">

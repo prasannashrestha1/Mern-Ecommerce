@@ -245,3 +245,63 @@ export const productListController = async (req, res) => {
     });
   }
 };
+
+//search product
+export const searchProductController = async (req, res) => {
+  try {
+    const { keyword } = req.params;
+    const result = await productModel
+      .find({
+        $or: [
+          {
+            name: {
+              //regex is a regular expression which defines one what basis we are searching the object for
+              //options: "i" makes the keyword case insensitive
+              $regex: keyword,
+              $options: "i",
+            },
+            description: {
+              $regex: keyword,
+              $options: "i",
+            },
+          },
+        ],
+      })
+      .select("-photo");
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Something went wrong while Searching the Product",
+      error,
+    });
+  }
+};
+
+//similar products
+export const relatedProductController = async (req, res) => {
+  try {
+    const { pid, cid } = req.params;
+    const products = await productModel
+      .find({
+        category: cid,
+        _id: { $ne: pid },
+      })
+      .select("-photo")
+      .limit(3)
+      .populate("category");
+    res.status(200).send({
+      success: true,
+      products,
+      message: "Product fetched successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: " Error while fetching the datas",
+      error,
+    });
+  }
+};
