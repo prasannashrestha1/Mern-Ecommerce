@@ -6,12 +6,15 @@ import toast from "react-hot-toast";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import SearchInput from "../Form/SearchInput";
 import useCategory from "../../hooks/UseCategory";
+import { useCart } from "../../context/cart";
+import { Badge } from "antd";
 
 export default function Header() {
   const [auth, setAuth] = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [openCategory, setOpenCategory] = useState(false);
   const categories = useCategory();
+  const [cart] = useCart();
 
   const navigate = useNavigate();
   const handleLogOut = () => {
@@ -127,9 +130,11 @@ export default function Header() {
             </>
           )}
           <Link to="/cart">
-            <li className="hidden sm:inline text-slate-700 hover:underline">
-              Cart(0)
-            </li>
+            <Badge count={cart?.length} showZero>
+              <li className="hidden sm:inline text-slate-700 hover:underline">
+                Cart
+              </li>
+            </Badge>
           </Link>
         </ul>
       </div>

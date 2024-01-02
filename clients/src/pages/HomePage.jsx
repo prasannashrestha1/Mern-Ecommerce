@@ -4,6 +4,8 @@ import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices.jsx";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/cart.jsx";
+import { toast } from "react-hot-toast";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -14,6 +16,7 @@ const HomePage = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
+  const [cart, setCart] = useCart();
   const navigate = useNavigate();
 
   //get all categories
@@ -197,7 +200,17 @@ const HomePage = () => {
                       />
                     </svg>
                   </button>
-                  <button className="ms-1 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  <button
+                    className="ms-1 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    onClick={() => {
+                      setCart([...cart, p]);
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, p])
+                      );
+                      toast.success("Item added to the Cart");
+                    }}
+                  >
                     Add to cart
                     <svg
                       className="rtl:rotate-180 w-3.5 h-3.5 ms-2"

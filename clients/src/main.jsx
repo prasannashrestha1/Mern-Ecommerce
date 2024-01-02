@@ -7,14 +7,17 @@ import { AuthProvider } from "./context/auth.jsx";
 
 import { DatePicker, message } from "antd";
 import { SearchProvider } from "./context/Search.jsx";
+import { CartProvider } from "./context/cart.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider>
     <SearchProvider>
       <BrowserRouter>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
+        <CartProvider>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </CartProvider>
       </BrowserRouter>
     </SearchProvider>
   </AuthProvider>
