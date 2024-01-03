@@ -2,6 +2,7 @@ import { comparePassword, hashPassword } from "../helpers/authHelper.js";
 import userModel from "../models/userModel.js";
 import JWT from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { hashPassword } from "./../helpers/authHelper";
 
 export const registerController = async (req, res) => {
   try {
@@ -138,4 +139,38 @@ export const forgotPasswordController = async (req, res) => {
 
 export const testController = (req, res) => {
   res.send("protecetd route");
+};
+
+//update profile
+export const updateProfileContoller = async (req, res) => {
+  try {
+    const { name, email, password, address, phone } = req.body;
+    const user = await userModel.findById(req.user._id);
+    //password
+    if (password && password.length < 6) {
+      return res.json({ error: "password is requird and 6 characters long" });
+    }
+    const hashedPassword = password ? await hashPassword(password) : undefined;
+    const updatedUser = await userModel.findByIdAndUpdate(
+      req.user._id,
+      {
+        name: name || user.name,
+        password: hashedPassword || user.password,
+        phone: phone || user.phone,
+        address: phone || user.address,
+      },
+      { new: true }
+    );
+    res.status(200).send({
+      success: true,
+      updatedUser,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error while updating the profile ",
+      error,
+    });
+  }
 };
