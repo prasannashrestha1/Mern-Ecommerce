@@ -117,6 +117,10 @@ const HomePage = () => {
     }
   };
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   return (
     // <Layout title={"Best Offers"}>
     //   <h1></h1>
@@ -124,14 +128,15 @@ const HomePage = () => {
     // </Layout>
 
     <Layout title={"All Products - Best Offers"}>
-      <div className="grid grid-cols-4 gap-4 ">
-        <div className="col-span-3">
-          <h1 className="text-center">Filter By Category</h1>
+      <div className="flex flex-col md:flex-row">
+        <div className="w-[25%] md:h-[100vh]">
+          <h1 className="mt-5 text-center">Filter By Category</h1>
           <div className="flex flex-col m-5">
             {categories.map((c) => (
               <Checkbox
                 key={c._id}
                 onChange={(e) => handleFilter(e.target.checked, c._id)}
+                className=" text-sm md:text-lg "
               >
                 {c.name}
               </Checkbox>
@@ -140,11 +145,13 @@ const HomePage = () => {
           {/* price filter */}
 
           <h1 className="text-center">Filter By Price</h1>
-          <div className="m-3">
+          <div className="m-5 text-lg">
             <Radio.Group onChange={(e) => setRadio(e.target.value)}>
               {Prices?.map((p) => (
                 <div key={p._id} className="flex flex-col">
-                  <Radio value={p.array}>{p.name}</Radio>
+                  <Radio value={p.array} className="text-sm md:text-lg">
+                    {p.name}
+                  </Radio>
                 </div>
               ))}
             </Radio.Group>
@@ -158,14 +165,12 @@ const HomePage = () => {
             </button>
           </div>
         </div>
-        <div className="col-span-9">
-          {JSON.stringify(radio, null, 4)}
-          <h1 className="text-center text-3xl">All Products</h1>
-          <div className="flex justify-center items-center gap-7">
+        <div className=" w-full ">
+          <h1 className="text-center text-3xl my-5">All Products</h1>
+          <div className="flex justify-center items-center flex-col md:flex-row gap-7">
             {products.map((p) => (
               <div
                 className="max-w-sm rounded overflow-hidden shadow-lg mb-5 "
-                style={{ width: "18rem" }}
                 key={p._id}
               >
                 <img
@@ -174,13 +179,15 @@ const HomePage = () => {
                   alt={p.name}
                 />
                 <div className="px-6 py-4">
-                  <h1 className="font-bold text-xl mb-2">{p.names}</h1>
+                  <h1 className="font-bold text-xl mb-2">
+                    {capitalizeFirstLetter(p.names)}
+                  </h1>
                   <p className="text-gray-700 text-base">
-                    {p.description.substring(0, 30)}...
+                    {capitalizeFirstLetter(p.description.substring(0, 30))}...
                   </p>
                   <p className="text-gray-700 text-base">${p.price}</p>
                   <button
-                    className=" ms-1 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    className="btn"
                     onClick={() => navigate(`/products/${p.slug}`)}
                   >
                     Details
@@ -201,7 +208,7 @@ const HomePage = () => {
                     </svg>
                   </button>
                   <button
-                    className="ms-1 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    className="btn"
                     onClick={() => {
                       setCart([...cart, p]);
                       localStorage.setItem(
@@ -232,10 +239,10 @@ const HomePage = () => {
               </div>
             ))}
           </div>
-          <div className="m-2 p-3 ">
+          <div className="grid place-items-center">
             {products && products.length < total && (
               <button
-                className=""
+                className="btn"
                 onClick={(e) => {
                   e.preventDefault();
                   setPage(page + 1);

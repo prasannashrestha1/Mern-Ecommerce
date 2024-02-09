@@ -127,15 +127,15 @@ export default function Header() {
                   </div>
                 )}
               </div>
+              <Link to="/cart">
+                <Badge count={cart?.length} showZero>
+                  <li className="hidden sm:inline text-slate-700 hover:underline">
+                    Cart
+                  </li>
+                </Badge>
+              </Link>
             </>
           )}
-          <Link to="/cart">
-            <Badge count={cart?.length} showZero>
-              <li className="hidden sm:inline text-slate-700 hover:underline">
-                Cart
-              </li>
-            </Badge>
-          </Link>
         </ul>
       </div>
     </header>

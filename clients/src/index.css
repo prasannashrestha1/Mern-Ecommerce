@@ -77,3 +77,17 @@ input[type='file']{
   display: none;
 }
 
+body {
+  background-image: url(./assets/Background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1{
+  @apply text-xl md:text-2xl
+}
+
+.btn{
+  @apply inline-flex items-center px-4 py-2 mr-4 mt-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800;
+  width: 130px;
+}

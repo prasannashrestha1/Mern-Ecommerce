@@ -26,12 +26,10 @@ const CategoryProduct = () => {
 
   return (
     <Layout>
-      <div className="flex flex-col md:flex-row text-center w-full">
-        <h1 className="text-center"> {category?.name}</h1>
-        <h1 className="text-center"> {products?.name}</h1>
-        <div className="row">
-          <div className="col-span-9">
-            <h1 className="text-center text-3xl">All Products</h1>
+      <div className="flex pl-[10%] pt-10 text-center w-full">
+        <div className="">
+          <div className="">
+            <h1 className="text-center text-3xl pb-5">All Products</h1>
             <div className="flex justify-center items-center gap-7">
               {products?.map((p) => (
                 <div

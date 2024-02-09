@@ -6,14 +6,7 @@ const AdminMenu = () => {
     <>
       <div className="m-3 py-4 px-8 flex justify-start items-start flex-col gap-3">
         <h1 className="text-3xl text-center w-[20%]">Admin Panel</h1>
-        <div className="w-96 ">
-          {/* <NavLink
-          to="#!"
-          aria-current="true"
-          className="block w-full cursor-pointer rounded-lg bg-primary-100 p-4 text-primary-600"
-        >
-          Create Category
-        </NavLink> */}
+        <div className="w-96 bg-gray-300 ">
           <NavLink
             to="/dashboard/admin/create-category"
             className="block w-full cursor-pointer rounded-lg p-4 transition duration-500 hover:bg-neutral-100 hover:text-neutral-500 focus:bg-neutral-100 focus:text-neutral-500 focus:ring-0 dark:hover:bg-neutral-600 dark:hover:text-neutral-200 dark:focus:bg-neutral-600 dark:focus:text-neutral-200  border-slate-200  border-2 "
